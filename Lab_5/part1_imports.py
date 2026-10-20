@@ -35,11 +35,23 @@ def main():
     # Alias-ul scurteaza un nume lung; o prescurtare neclara ingreuneaza citirea.
 
     # Exercitiul 4 - Biblioteca standard
+    import urllib.error
+
     time.sleep(1)
-    with urllib.request.urlopen(BASE_URL, timeout=TIMEOUT) as response:
-        print("Exercitiul 4:", response.status)
-        html = response.read().decode("utf-8", errors="replace")
-        print(html[:200])
+
+    try:
+        with urllib.request.urlopen(
+                BASE_URL, timeout=TIMEOUT
+        ) as response:
+            print("Exercitiul 4:", response.status)
+            html = response.read().decode(
+                "utf-8", errors="replace"
+            )
+            print(html[:200])
+
+    except urllib.error.HTTPError as eroare:
+        print("Exercitiul 4: serverul a refuzat cererea.")
+        print("Codul erorii:", eroare.code)
 
     # Exercitiul 5 - Continutul unui modul
     print("Exercitiul 5:", dir(requests))
